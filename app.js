@@ -27,6 +27,9 @@ function addTodo(event) {
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo)
 
+    // Add Todo to localstorage
+    saveLocalTodos(todoInput.value)
+
     // Check Mark button
     const completedButton = document.createElement('button')
     completedButton.innerHTML = '<i class="fas fa-check"> </i>'
@@ -92,4 +95,19 @@ function filterTodo(e) {
 
         }
     })
+}
+
+function saveLocalTodos(todo) {
+    let todos;
+    // Check if there is already todos
+    // if it is null, set it as an empty arry
+    if (localStorage.getItem('todos') === null) {
+        todos = []
+    }
+    // otherwise get back the todos from localStorage array
+    else {
+        todos = JSON.parse(localStorage.getItem('todos'))
+    }
+    todos.push(todo)
+    localStorage.setItem('todos', JSON.stringify(todos))
 }
